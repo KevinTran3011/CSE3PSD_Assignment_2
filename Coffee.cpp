@@ -1,6 +1,9 @@
+// Coffee.cpp
 #include "Coffee.h"
 
 Coffee::Coffee(string name, double price, string size) : name(name), price(price), size(size) {}
+
+Coffee::~Coffee() {} // Define destructor
 
 string Coffee::getName() {
     return name;
@@ -28,11 +31,13 @@ Coffee* Coffee::createCoffee(string type) {
     }
 }
 
-MilkDecorator::MilkDecorator(Coffee* coffee, string milkType) : Coffee(coffee->getName(), coffee->getPrice(), coffee->getSize()), milkType(milkType) {
+MilkDecorator::MilkDecorator(Coffee* coffee, string milkType) 
+    : Coffee(coffee->getName(), coffee->getPrice(), coffee->getSize()), milkType(milkType) {
     this->name += " with " + milkType + " milk";
 }
 
-SugarDecorator::SugarDecorator(Coffee* coffee, int sugarAmount) : Coffee(coffee->getName(), coffee->getPrice(), coffee->getSize()), sugarAmount(sugarAmount) {
+SugarDecorator::SugarDecorator(Coffee* coffee, int sugarAmount) 
+    : Coffee(coffee->getName(), coffee->getPrice(), coffee->getSize()), sugarAmount(sugarAmount) {
     this->name += " with " + to_string(sugarAmount) + " sugar";
     this->price += 0.1 * sugarAmount; // Assuming each sugar costs 0.1
 }

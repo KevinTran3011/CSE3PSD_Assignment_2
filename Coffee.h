@@ -1,3 +1,4 @@
+// Coffee.h
 #ifndef COFFEE_H
 #define COFFEE_H
 
@@ -12,6 +13,7 @@ protected:
 
 public:
     Coffee(string name, double price, string size);
+    virtual ~Coffee(); // Add virtual destructor
     virtual string getName();
     virtual void setPrice(double price);
     virtual double getPrice();
@@ -25,6 +27,7 @@ private:
 
 public:
     MilkDecorator(Coffee* coffee, string milkType);
+    ~MilkDecorator(); // Add destructor
 };
 
 class SugarDecorator : public Coffee {
@@ -33,6 +36,7 @@ private:
 
 public:
     SugarDecorator(Coffee* coffee, int sugarAmount);
+    ~SugarDecorator(); // Add destructor
 };
 
 #endif
