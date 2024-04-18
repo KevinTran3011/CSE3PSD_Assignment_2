@@ -3,25 +3,101 @@
 
 #include "Coffee.h"
 
-// Abstract decorator class
-class CoffeeDecorator : public Coffee
+// Abstract builder class
+class CoffeeMaker
 {
 protected:
     Coffee *coffee;
 
 public:
-    CoffeeDecorator(Coffee *c) : coffee(c) {}
-    virtual ~CoffeeDecorator()
+    CoffeeMaker() : coffee(new Coffee()) {}
+    virtual ~CoffeeMaker()
     {
         delete coffee;
+    }
+
+    Coffee *getCoffee() const
+    {
+        return coffee;
+    }
+
+    virtual void boilWater() const
+    {
+        std::cout << "Boiling water.\n";
+    }
+
+    virtual void grindBeans() const
+    {
+        std::cout << "Grinding coffee beans.\n";
+    }
+
+    virtual void applyFilter() const
+    {
+        std::cout << "Applying filter.\n";
+    }
+
+    virtual void placeCoffeeInFilter() const
+    {
+        std::cout << "Placing coffee in filter.\n";
+    }
+
+    virtual void pourAndWait() const
+    {
+        std::cout << "Pouring water and waiting.\n";
+    }
+
+    virtual void makeCoffee() = 0;
+};
+
+// Concrete builder class for Black Coffee
+class BlackCoffeeMaker : public CoffeeMaker
+{
+public:
+    BlackCoffeeMaker() : CoffeeMaker() {}
+
+    void makeCoffee() override
+    {
+        boilWater();
+        grindBeans();
+        applyFilter();
+        placeCoffeeInFilter();
+        pourAndWait();
+        coffee->setDescription("Black Coffee");
+        coffee->setPrice(2.0);
+    }
+};
+
+// Concrete builder class for White Coffee
+class WhiteCoffeeMaker : public CoffeeMaker
+{
+public:
+    WhiteCoffeeMaker() : CoffeeMaker() {}
+
+    void makeCoffee() override
+    {
+        boilWater();
+        grindBeans();
+        applyFilter();
+        placeCoffeeInFilter();
+        pourAndWait();
+        coffee->setDescription("White Coffee");
+        coffee->setPrice(2.5);
     }
 };
 
 // Concrete decorator class for adding milk
-class MilkDecorator : public CoffeeDecorator
+class MilkDecorator : public Coffee
 {
+protected:
+    Coffee *coffee;
+
 public:
-    MilkDecorator(Coffee *c) : CoffeeDecorator(c) {}
+    MilkDecorator(Coffee *c) : coffee(c) {}
+
+    ~MilkDecorator()
+    {
+        delete coffee;
+    }
 
     std::string getDescription() const override
     {
@@ -35,10 +111,18 @@ public:
 };
 
 // Concrete decorator class for adding sugar
-class SugarDecorator : public CoffeeDecorator
+class SugarDecorator : public Coffee
 {
+protected:
+    Coffee *coffee;
+
 public:
-    SugarDecorator(Coffee *c) : CoffeeDecorator(c) {}
+    SugarDecorator(Coffee *c) : coffee(c) {}
+
+    ~SugarDecorator()
+    {
+        delete coffee;
+    }
 
     std::string getDescription() const override
     {
@@ -51,4 +135,4 @@ public:
     }
 };
 
-#endif // COFFEE_MAKER_H
+#endif // COFFEE_MAKER_Hs

@@ -7,24 +7,26 @@
 // Base Coffee class
 class Coffee
 {
+protected:
+    std::string description;
+    double price;
+
 public:
     virtual ~Coffee() {}
-    virtual std::string getDescription() const = 0;
-    virtual double getPrice() const = 0;
+    virtual std::string getDescription() const { return description; }
+    virtual double getPrice() const { return price; }
+    virtual void setDescription(const std::string &desc) { description = desc; }
+    virtual void setPrice(double p) { price = p; }
 };
 
 // Concrete Coffee class for Black Coffee
 class BlackCoffee : public Coffee
 {
 public:
-    std::string getDescription() const override
+    BlackCoffee()
     {
-        return "Black Coffee";
-    }
-
-    double getPrice() const override
-    {
-        return 2.0;
+        setDescription("Black Coffee");
+        setPrice(2.0);
     }
 };
 
@@ -32,14 +34,10 @@ public:
 class WhiteCoffee : public Coffee
 {
 public:
-    std::string getDescription() const override
+    WhiteCoffee()
     {
-        return "White Coffee";
-    }
-
-    double getPrice() const override
-    {
-        return 2.5;
+        setDescription("White Coffee");
+        setPrice(2.5);
     }
 };
 
