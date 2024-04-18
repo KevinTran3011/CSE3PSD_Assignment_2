@@ -2,6 +2,7 @@
 #define COFFEE_MAKER_H
 
 #include "Coffee.h"
+using namespace std;
 
 // Abstract builder class
 class CoffeeMaker
@@ -10,7 +11,7 @@ protected:
     Coffee *coffee;
 
 public:
-    CoffeeMaker() : coffee(new Coffee()) {}
+    CoffeeMaker() : coffee(nullptr) {}
     virtual ~CoffeeMaker()
     {
         delete coffee;
@@ -23,27 +24,27 @@ public:
 
     virtual void boilWater() const
     {
-        std::cout << "Boiling water.\n";
+        cout << "Boiling water.\n";
     }
 
     virtual void grindBeans() const
     {
-        std::cout << "Grinding coffee beans.\n";
+        cout << "Grinding coffee beans.\n";
     }
 
     virtual void applyFilter() const
     {
-        std::cout << "Applying filter.\n";
+        cout << "Applying filter.\n";
     }
 
     virtual void placeCoffeeInFilter() const
     {
-        std::cout << "Placing coffee in filter.\n";
+        cout << "Placing coffee in filter.\n";
     }
 
     virtual void pourAndWait() const
     {
-        std::cout << "Pouring water and waiting.\n";
+        cout << "Pouring water and waiting.\n";
     }
 
     virtual void makeCoffee() = 0;
@@ -53,7 +54,7 @@ public:
 class BlackCoffeeMaker : public CoffeeMaker
 {
 public:
-    BlackCoffeeMaker() : CoffeeMaker() {}
+    BlackCoffeeMaker() : CoffeeMaker() { coffee = new BlackCoffee(); }
 
     void makeCoffee() override
     {
@@ -71,7 +72,7 @@ public:
 class WhiteCoffeeMaker : public CoffeeMaker
 {
 public:
-    WhiteCoffeeMaker() : CoffeeMaker() {}
+    WhiteCoffeeMaker() : CoffeeMaker() { coffee = new WhiteCoffee(); }
 
     void makeCoffee() override
     {
@@ -94,13 +95,13 @@ protected:
 public:
     MilkDecorator(Coffee *c) : coffee(c) {}
 
-    ~MilkDecorator()
-    {
-        delete coffee;
-    }
+    // Destructor does not delete coffee object
+    ~MilkDecorator() {}
 
-    std::string getDescription() const override
+    string getDescription() const override
     {
+        cout << "Adding milk\n"
+             << endl;
         return coffee->getDescription() + ", with Milk";
     }
 
@@ -119,13 +120,13 @@ protected:
 public:
     SugarDecorator(Coffee *c) : coffee(c) {}
 
-    ~SugarDecorator()
-    {
-        delete coffee;
-    }
+    // Destructor does not delete coffee object
+    ~SugarDecorator() {}
 
-    std::string getDescription() const override
+    string getDescription() const override
     {
+        cout << "Adding sugar\n"
+             << endl;
         return coffee->getDescription() + ", with Sugar";
     }
 
@@ -135,4 +136,4 @@ public:
     }
 };
 
-#endif // COFFEE_MAKER_Hs
+#endif // COFFEE_MAKER_H
