@@ -1,42 +1,61 @@
-// Coffee.h
 #ifndef COFFEE_H
 #define COFFEE_H
 
+#include <iostream>
 #include <string>
-using namespace std;
 
-class Coffee {
-protected:
-    string name;
-    double price;
-    string size;
-
+// Base Coffee class
+class Coffee
+{
 public:
-    Coffee(string name, double price, string size);
-    virtual ~Coffee(); // Add virtual destructor
-    virtual string getName();
-    virtual void setPrice(double price);
-    virtual double getPrice();
-    virtual string getSize();
-    static Coffee* createCoffee(string type);
+    virtual ~Coffee() {}
+    virtual std::string getDescription() const = 0;
+    virtual double getPrice() const = 0;
 };
 
-class MilkDecorator : public Coffee {
-private:
-    string milkType;
-
+// Concrete Coffee class for Black Coffee
+class BlackCoffee : public Coffee
+{
 public:
-    MilkDecorator(Coffee* coffee, string milkType);
-    ~MilkDecorator(); // Add destructor
+    std::string getDescription() const override
+    {
+        return "Black Coffee";
+    }
+
+    double getPrice() const override
+    {
+        return 2.0;
+    }
 };
 
-class SugarDecorator : public Coffee {
-private:
-    int sugarAmount;
-
+// Concrete Coffee class for White Coffee
+class WhiteCoffee : public Coffee
+{
 public:
-    SugarDecorator(Coffee* coffee, int sugarAmount);
-    ~SugarDecorator(); // Add destructor
+    std::string getDescription() const override
+    {
+        return "White Coffee";
+    }
+
+    double getPrice() const override
+    {
+        return 2.5;
+    }
 };
 
-#endif
+// Coffee Factory
+class CoffeeFactory
+{
+public:
+    static Coffee *createCoffee(const std::string &type)
+    {
+        if (type == "black")
+            return new BlackCoffee();
+        else if (type == "white")
+            return new WhiteCoffee();
+        else
+            return nullptr;
+    }
+};
+
+#endif // COFFEE_H

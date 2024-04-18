@@ -1,20 +1,54 @@
-// CoffeeMaker.h
-#ifndef COFFEEMAKER_H
-#define COFFEEMAKER_H
+#ifndef COFFEE_MAKER_H
+#define COFFEE_MAKER_H
 
 #include "Coffee.h"
 
-class CoffeeMaker {
-private:
-    Coffee* coffee;
+// Abstract decorator class
+class CoffeeDecorator : public Coffee
+{
+protected:
+    Coffee *coffee;
 
 public:
-    CoffeeMaker();
-    ~CoffeeMaker(); // Add destructor
-    CoffeeMaker& createCoffee(string type);
-    CoffeeMaker& addMilk(string milkType);
-    CoffeeMaker& addSugar(int sugarAmount);
-    Coffee* build();
+    CoffeeDecorator(Coffee *c) : coffee(c) {}
+    virtual ~CoffeeDecorator()
+    {
+        delete coffee;
+    }
 };
 
-#endif
+// Concrete decorator class for adding milk
+class MilkDecorator : public CoffeeDecorator
+{
+public:
+    MilkDecorator(Coffee *c) : CoffeeDecorator(c) {}
+
+    std::string getDescription() const override
+    {
+        return coffee->getDescription() + ", with Milk";
+    }
+
+    double getPrice() const override
+    {
+        return coffee->getPrice() + 0.5; // Price increase for milk
+    }
+};
+
+// Concrete decorator class for adding sugar
+class SugarDecorator : public CoffeeDecorator
+{
+public:
+    SugarDecorator(Coffee *c) : CoffeeDecorator(c) {}
+
+    std::string getDescription() const override
+    {
+        return coffee->getDescription() + ", with Sugar";
+    }
+
+    double getPrice() const override
+    {
+        return coffee->getPrice() + 0.3; // Price increase for sugar
+    }
+};
+
+#endif // COFFEE_MAKER_H
