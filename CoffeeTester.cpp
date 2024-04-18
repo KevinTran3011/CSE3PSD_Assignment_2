@@ -1,7 +1,11 @@
 // CoffeeTester.cpp
 #include <iostream>
-#include "Coffee.cpp"
+#include "Coffee.h"
+#include "CoffeeMaker.h"
 using namespace std;
+
+
+
 
 class CoffeeTester {
 public:
@@ -9,20 +13,18 @@ public:
         string coffeeType, milkType;
         int sugarAmount;
 
-        cout << "Enter coffee type (black/white): ";
+        cout << "Enter the coffee type (Black/White): ";
         cin >> coffeeType;
 
-        Coffee* coffee = Coffee::createCoffee(coffeeType);
-        cout << coffee->getName() << ": " << coffee->getPrice() << endl;
-
         cout << "Enter milk type: ";
-        cin >> milkType;
-        coffee = new MilkDecorator(coffee, milkType);
-        cout << coffee->getName() << ": " << coffee->getPrice() << endl;
+        cin >> milkType; 
 
         cout << "Enter sugar amount: ";
         cin >> sugarAmount;
-        coffee = new SugarDecorator(coffee, sugarAmount);
+
+        CoffeeMaker coffeeMaker;
+        Coffee* coffee = coffeeMaker.createCoffee(coffeeType).addMilk(milkType).addSugar(sugarAmount).build();
+
         cout << coffee->getName() << ": " << coffee->getPrice() << endl;
 
         delete coffee;

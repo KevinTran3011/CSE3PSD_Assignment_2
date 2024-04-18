@@ -1,55 +1,22 @@
-// Coffee.cpp
-#include <string>
-using namespace std;
+#include "Coffee.h"
 
-class Coffee {
-protected:
-    string name;
-    double price;
-    string size;
+Coffee::Coffee(string name, double price, string size) : name(name), price(price), size(size) {}
 
-public:
-    Coffee(string name, double price, string size) : name(name), price(price), size(size) {}
+string Coffee::getName() {
+    return name;
+}
 
-    virtual string getName() {
-        return name;
-    }
+void Coffee::setPrice(double price) {
+    this->price = price;
+}
 
-    virtual void setPrice(double price) {
-        this->price = price;
-    }
+double Coffee::getPrice() {
+    return price;
+}
 
-    virtual double getPrice() {
-        return price;
-    }
-
-    virtual string getSize() {
-        return size;
-    }
-
-    static Coffee* createCoffee(string type);
-};
-
-class MilkDecorator : public Coffee {
-private:
-    string milkType;
-
-public:
-    MilkDecorator(Coffee* coffee, string milkType) : Coffee(coffee->getName(), coffee->getPrice(), coffee->getSize()), milkType(milkType) {
-        this->name += " with " + milkType + " milk";
-    }
-};
-
-class SugarDecorator : public Coffee {
-private:
-    int sugarAmount;
-
-public:
-    SugarDecorator(Coffee* coffee, int sugarAmount) : Coffee(coffee->getName(), coffee->getPrice(), coffee->getSize()), sugarAmount(sugarAmount) {
-        this->name += " with " + to_string(sugarAmount) + " sugar";
-        this->price += 0.1 * sugarAmount; // Assuming each sugar costs 0.1
-    }
-};
+string Coffee::getSize() {
+    return size;
+}
 
 Coffee* Coffee::createCoffee(string type) {
     if (type == "black") {
@@ -59,4 +26,13 @@ Coffee* Coffee::createCoffee(string type) {
     } else {
         return nullptr;
     }
+}
+
+MilkDecorator::MilkDecorator(Coffee* coffee, string milkType) : Coffee(coffee->getName(), coffee->getPrice(), coffee->getSize()), milkType(milkType) {
+    this->name += " with " + milkType + " milk";
+}
+
+SugarDecorator::SugarDecorator(Coffee* coffee, int sugarAmount) : Coffee(coffee->getName(), coffee->getPrice(), coffee->getSize()), sugarAmount(sugarAmount) {
+    this->name += " with " + to_string(sugarAmount) + " sugar";
+    this->price += 0.1 * sugarAmount; // Assuming each sugar costs 0.1
 }
