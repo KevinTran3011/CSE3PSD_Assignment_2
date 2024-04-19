@@ -3,19 +3,19 @@
 
 #include <iostream>
 #include <string>
-
+using namespace std;
 // Base Coffee class
 class Coffee
 {
 protected:
-    std::string description;
+    string description;
     double price;
 
 public:
     virtual ~Coffee() {}
-    virtual std::string getDescription() const { return description; }
+    virtual string getDescription() const { return description; }
     virtual double getPrice() const { return price; }
-    virtual void setDescription(const std::string &desc) { description = desc; }
+    virtual void setDescription(const string &desc) { description = desc; }
     virtual void setPrice(double p) { price = p; }
 };
 
@@ -45,7 +45,7 @@ public:
 class CoffeeFactory
 {
 public:
-    static Coffee *createCoffee(const std::string &type)
+    static Coffee *createCoffee(const string &type)
     {
         if (type == "black")
             return new BlackCoffee();
@@ -56,4 +56,4 @@ public:
     }
 };
 
-#endif // COFFEE_H
+#endif //
