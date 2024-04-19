@@ -1,3 +1,6 @@
+#ifndef FOOD
+#define FOOD
+
 #include <iostream>
 #include <string>
 using namespace std;
@@ -15,7 +18,9 @@ class Food{
     virtual double getPrice() const {return price;}
     virtual void setDescription(const string &desc ){description = desc;}
     virtual void setName(const string &newName){name = newName; }
-    
+
 
 
 };
+
+#endif;
