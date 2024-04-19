@@ -2,7 +2,58 @@
 #define COFFEE_MAKER_H
 
 #include "Coffee.h"
+#include <iostream>
+#include <string>
 using namespace std;
+
+// Forward declaration of Coffee
+class Coffee;
+
+// Concrete decorator class for adding milk
+class MilkDecorator : public Coffee
+{
+protected:
+    Coffee *coffee;
+
+public:
+    MilkDecorator(Coffee *c) : coffee(c) {}
+
+    ~MilkDecorator() {}
+
+    string getDescription() const override
+    {
+        cout << "Adding milk\n" << endl;
+        return coffee->getDescription() + ", with Milk";
+    }
+
+    double getPrice() const override
+    {
+        return coffee->getPrice() + 0.5; // Price increase for milk
+    }
+};
+
+// Concrete decorator class for adding sugar
+class SugarDecorator : public Coffee
+{
+protected:
+    Coffee *coffee;
+
+public:
+    SugarDecorator(Coffee *c) : coffee(c) {}
+
+    ~SugarDecorator() {}
+
+    string getDescription() const override
+    {
+        cout << "Adding sugar\n" << endl;
+        return coffee->getDescription() + ", with Sugar";
+    }
+
+    double getPrice() const override
+    {
+        return coffee->getPrice() + 0.3; // Price increase for sugar
+    }
+};
 
 // Abstract builder class
 class CoffeeMaker
@@ -11,8 +62,25 @@ protected:
     Coffee *coffee;
 
 public:
-    CoffeeMaker() : coffee(nullptr) {}
-    virtual ~CoffeeMaker()
+    CoffeeMaker(string coffeeType, bool addMilk, bool addSugar) : coffee(nullptr)
+    {
+        // Based on user input, create appropriate coffee object
+        if (coffeeType == "Black") {
+            coffee = new BlackCoffee();
+        } else if (coffeeType == "White") {
+            coffee = new WhiteCoffee();
+        }
+        
+        // Add decorators based on user input
+        if (addMilk) {
+            coffee = new MilkDecorator(coffee);
+        }
+        if (addSugar) {
+            coffee = new SugarDecorator(coffee);
+        }
+    }
+
+    ~CoffeeMaker()
     {
         delete coffee;
     }
@@ -47,93 +115,31 @@ public:
         cout << "Pouring water and waiting.\n";
     }
 
-    virtual void makeCoffee() = 0;
+    void makeCoffee()
+    {
+        boilWater();
+        grindBeans();
+        applyFilter();
+        placeCoffeeInFilter();
+        pourAndWait();
+        // Print final description and price
+        cout << "Final Description: " << coffee->getDescription() << endl;
+        cout << "Final Price: " << coffee->getPrice() << endl;
+    }
 };
 
 // Concrete builder class for Black Coffee
 class BlackCoffeeMaker : public CoffeeMaker
 {
 public:
-    BlackCoffeeMaker() : CoffeeMaker() { coffee = new BlackCoffee(); }
-
-    void makeCoffee() override
-    {
-        boilWater();
-        grindBeans();
-        applyFilter();
-        placeCoffeeInFilter();
-        pourAndWait();
-        coffee->setDescription("Black Coffee");
-        coffee->setPrice(2.0);
-    }
+    BlackCoffeeMaker(bool addMilk, bool addSugar) : CoffeeMaker("Black", addMilk, addSugar) {}
 };
 
 // Concrete builder class for White Coffee
 class WhiteCoffeeMaker : public CoffeeMaker
 {
 public:
-    WhiteCoffeeMaker() : CoffeeMaker() { coffee = new WhiteCoffee(); }
-
-    void makeCoffee() override
-    {
-        boilWater();
-        grindBeans();
-        applyFilter();
-        placeCoffeeInFilter();
-        pourAndWait();
-        coffee->setDescription("White Coffee");
-        coffee->setPrice(2.5);
-    }
-};
-
-// Concrete decorator class for adding milk
-class MilkDecorator : public Coffee
-{
-protected:
-    Coffee *coffee;
-
-public:
-    MilkDecorator(Coffee *c) : coffee(c) {}
-
-    // Destructor does not delete coffee object
-    ~MilkDecorator() {}
-
-    string getDescription() const override
-    {
-        cout << "Adding milk\n"
-             << endl;
-        return coffee->getDescription() + ", with Milk";
-    }
-
-    double getPrice() const override
-    {
-        return coffee->getPrice() + 0.5; // Price increase for milk
-    }
-};
-
-// Concrete decorator class for adding sugar
-class SugarDecorator : public Coffee
-{
-protected:
-    Coffee *coffee;
-
-public:
-    SugarDecorator(Coffee *c) : coffee(c) {}
-
-    // Destructor does not delete coffee object
-    ~SugarDecorator() {}
-
-    string getDescription() const override
-    {
-        cout << "Adding sugar\n"
-             << endl;
-        return coffee->getDescription() + ", with Sugar";
-    }
-
-    double getPrice() const override
-    {
-        return coffee->getPrice() + 0.3; // Price increase for sugar
-    }
+    WhiteCoffeeMaker(bool addMilk, bool addSugar) : CoffeeMaker("White", addMilk, addSugar) {}
 };
 
 #endif // COFFEE_MAKER_H
