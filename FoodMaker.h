@@ -6,5 +6,10 @@
 using namespace std;
 
 
+class foodMaker{
 
-#endif
+};
+
+
+
+#endif;

@@ -6,10 +6,10 @@
 #include <string>
 using namespace std;
 
-// Forward declaration of Coffee
+
 class Coffee;
 
-// Concrete decorator class for adding milk
+
 class MilkDecorator : public Coffee
 {
 protected:
@@ -28,11 +28,11 @@ public:
 
     double getPrice() const override
     {
-        return coffee->getPrice() + 0.5; // Price increase for milk
+        return coffee->getPrice() + 0.5; 
     }
 };
 
-// Concrete decorator class for adding sugar
+
 class SugarDecorator : public Coffee
 {
 protected:
@@ -51,11 +51,11 @@ public:
 
     double getPrice() const override
     {
-        return coffee->getPrice() + 0.3; // Price increase for sugar
+        return coffee->getPrice() + 0.3;
     }
 };
 
-// Abstract builder class
+
 class CoffeeMaker
 {
 protected:
@@ -64,14 +64,12 @@ protected:
 public:
     CoffeeMaker(string coffeeType, bool addMilk, bool addSugar) : coffee(nullptr)
     {
-        // Based on user input, create appropriate coffee object
         if (coffeeType == "Black") {
             coffee = new BlackCoffee();
         } else if (coffeeType == "White") {
             coffee = new WhiteCoffee();
         }
         
-        // Add decorators based on user input
         if (addMilk) {
             coffee = new MilkDecorator(coffee);
         }
@@ -122,24 +120,21 @@ public:
         applyFilter();
         placeCoffeeInFilter();
         pourAndWait();
-        // Print final description and price
         cout << "Final Description: " << coffee->getDescription() << endl;
         cout << "Final Price: " << coffee->getPrice() << endl;
     }
 };
 
-// Concrete builder class for Black Coffee
 class BlackCoffeeMaker : public CoffeeMaker
 {
 public:
     BlackCoffeeMaker(bool addMilk, bool addSugar) : CoffeeMaker("Black", addMilk, addSugar) {}
 };
 
-// Concrete builder class for White Coffee
 class WhiteCoffeeMaker : public CoffeeMaker
 {
 public:
     WhiteCoffeeMaker(bool addMilk, bool addSugar) : CoffeeMaker("White", addMilk, addSugar) {}
 };
 
-#endif // COFFEE_MAKER_H
+#endif 
