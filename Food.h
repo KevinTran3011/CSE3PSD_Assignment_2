@@ -28,7 +28,7 @@ class sandWich : public Food{
     public:
     sandWich(){
         setName("Sandwich");
-        setDescription("2 slices of bread with eggs, ham, cheese and lettuce");
+        setDescription("2 slices of bread with scrambled eggs, crispy bacon, melted and lettuce");
         setPrice(5.0);
     }
 
@@ -40,6 +40,18 @@ class tiramisu : public Food{
         setName("Tiramisu");
         setDescription("A coffee-flavoured Italian dessert made from lady finger cookies\n dipped in coffee , with layers of mascapone cheese");
         setPrice(4.0);
+    }
+};
+class foodFactory{
+    public:
+    static Food *createFood(const string &foodType){
+        if(foodType == "sandWich")
+            return new sandWich();
+        else if(foodType == "tiramisu")
+            return new tiramisu();
+        else
+            cout << " We don't recognize this food type\n" << endl;
+            return nullptr;
     }
 };
 
