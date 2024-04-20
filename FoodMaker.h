@@ -49,6 +49,16 @@ class foodMaker{
 
 };
 
+class SandWichMaker : public foodMaker{
+    public:
+    SandWichMaker() : foodMaker("sandWich"){}
+};
+
+class TiramisuMaker : public foodMaker{
+    public:
+    TiramisuMaker() : foodMaker("tiramisu"){}
+};
+
 
 
 #endif;
