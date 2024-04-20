@@ -24,4 +24,4 @@ class FoodTester{
 };
 
 
-#endif;
+#endif //FOOD_TESTER_H
