@@ -18,9 +18,29 @@ class Food{
     virtual double getPrice() const {return price;}
     virtual void setDescription(const string &desc ){description = desc;}
     virtual void setName(const string &newName){name = newName; }
+    virtual void setPrice(const double &newPrice){price = newPrice;}
 
 
 
+};
+
+class sandWich : public Food{
+    public:
+    sandWich(){
+        setName("Sandwich");
+        setDescription("2 slices of bread with eggs, ham, cheese and lettuce");
+        setPrice(5.0);
+    }
+
+};
+
+class tiramisu : public Food{
+    public:
+    tiramisu(){
+        setName("Tiramisu");
+        setDescription("A coffee-flavoured Italian dessert made from lady finger cookies\n dipped in coffee , with layers of mascapone cheese");
+        setPrice(4.0);
+    }
 };
 
 #endif;
