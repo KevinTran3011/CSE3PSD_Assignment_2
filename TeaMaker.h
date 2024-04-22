@@ -2,87 +2,16 @@
 #define TEA_MAKER_H
 
 #include "Tea.h"
+#include "DrinkMaker.h"
 #include <iostream>
 #include <string>
 using namespace std;
 
-
-class Tea;
-
-class MilkDecorator : public Tea
+class TeaMaker : public DrinkMaker
 {
-protected:
-    Tea *tea;
-
-public: 
-    MilkDecorator(Tea *t) : tea(t) {}
-
-    ~MilkDecorator() {}
-
-    string getDescription() const override
-    {
-        cout << "Adding milk\n" << endl;
-        return tea->getDescription() + ", with Milk";
-    }
-
-    double getPrice() const override
-    {
-        return tea->getPrice() + 0.5;
-    }
-  };
-
-
-class SugarDecorator : public Tea{
-protected:
-    Tea *tea;
-    public:
-    SugarDecorator(Tea *t) : tea(t) {}
-    ~SugarDecorator() {}
-
-    string getDescription() const override
-    {
-        cout << "Adding sugar\n" << endl;
-        return tea->getDescription() + ", with Sugar";
-    }
-
-    double getPrice() const override
-    {
-        return tea->getPrice() + 0.3;
-    }
-};
-
-
-class TeaMaker
-{
-protected:
-    Tea *tea;
-
 public:
-    TeaMaker(string teaType, bool addMilk, bool addSugar) : tea(nullptr)
-    {
-        if (teaType == "black") {
-            tea = new BlackTea();
-        } else if (teaType == "white") {
-            tea = new WhiteTea();
-        }
-        
-        if (addMilk) {
-            tea = new MilkDecorator(tea);
-        }
-        if (addSugar) {
-            tea = new SugarDecorator(tea);
-        }
-    }
-
-    virtual ~TeaMaker()
-    {
-        delete tea;
-    }
-
-    Tea *getTea() const
-    {
-        return tea;
-    }
+    TeaMaker(string teaType, bool addMilk, bool addSugar) 
+        : DrinkMaker(TeaFactory::createTea(teaType), addMilk, addSugar) {}
 
     virtual void boilWater() const
     {
@@ -99,25 +28,26 @@ public:
         cout << "Adding lemon.\n";
     }
 
-    void makeTea()
+    void makeDrink() override
     {
         boilWater();
         steepTea();
         addLemon();
-        cout << "Final Description: " << tea->getDescription() << endl;
-        cout << "Final Price: " << tea->getPrice() << endl;
+        cout << "Final Description: " << getDrink()->getDescription() << endl;
+        cout << "Final Price: " << getDrink()->getPrice() << endl;
     }
 };
 
-class BlackTeaMaker : public TeaMaker
+class MatchaTeaMaker : public TeaMaker
 {
 public:
-    BlackTeaMaker(bool addMilk, bool addSugar) : TeaMaker("black", addMilk, addSugar) {}
+    MatchaTeaMaker(bool addMilk, bool addSugar) : TeaMaker("matcha", addMilk, addSugar) {}
 };
 
-class WhiteTeaMaker : public TeaMaker
+class ChaiMaker : public TeaMaker
 {
 public:
-    WhiteTeaMaker(bool addMilk, bool addSugar) : TeaMaker("white", addMilk, addSugar) {}
+    ChaiMaker(bool addMilk, bool addSugar) : TeaMaker("chai", addMilk, addSugar) {}
 };
+
 #endif

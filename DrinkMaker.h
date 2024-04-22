@@ -1,25 +1,54 @@
 #ifndef DRINK_MAKER_H
 #define DRINK_MAKER_H
 
+#include "Drinks.h"
+#include "Coffee.h"
+#include "Tea.h"
 #include <iostream>
 #include <string>
-#include <cctype> 
-#include "Coffee.h"
-#include "CoffeeMaker.h"
-#include "Tea.h" // Assuming you have a Tea class similar to Coffee
-
 using namespace std;
 
 class Drink;
 
+class MilkDecorator : public Drink {
+private:
+    Drink *drink;
+
+public:
+    MilkDecorator(Drink *drink) : drink(drink) {}
+
+    double getPrice() const override {
+        return drink->getPrice() + 0.5;
+    }
+
+    string getDescription() const override {
+        return drink->getDescription() + ", with milk";
+    }
+};
+
+class SugarDecorator : public Drink {
+private:
+    Drink *drink;
+
+public:
+    SugarDecorator(Drink *drink) : drink(drink) {}
+
+    double getPrice() const override {
+        return drink->getPrice() + 0.2;
+    }
+
+    string getDescription() const override {
+        return drink->getDescription() + ", with sugar";
+    }
+};
+
 class DrinkFactory {
 public:
-    static Drink* createDrink(const std::string& type, bool addMilk, bool addSugar) {
-        if (type == "coffee") {
-            CoffeeMaker* coffeeMaker = new CoffeeMaker("Black", addMilk, addSugar); // Modify parameters as needed
-            return coffeeMaker->getCoffee();
-        // } else if (type == "tea") {
-        //     return new TeaMaker("Green", addMilk); // Modify parameters as needed
+    static Drink *createDrink(string drinkType) {
+        if (drinkType == "coffee") {
+            return new Coffee();
+        } else if (drinkType == "tea") {
+            return new Tea();
         } else {
             return nullptr;
         }
@@ -31,19 +60,24 @@ protected:
     Drink *drink;
 
 public:
-    DrinkMaker(const std::string& drinkType, bool addMilk, bool addSugar) {
-        drink = DrinkFactory::createDrink(drinkType, addMilk, addSugar);
+    DrinkMaker(Drink* drink, bool addMilk, bool addSugar) : drink(drink) {
+        if (addMilk) {
+            this->drink = new MilkDecorator(this->drink);
+        }
+        if (addSugar) {
+            this->drink = new SugarDecorator(this->drink);
+        }
     }
 
-    ~DrinkMaker() {
+    virtual ~DrinkMaker() {
         delete drink;
     }
 
-        Drink* getDrink() const {
+    Drink *getDrink() const {
         return drink;
     }
 
-   
+    virtual void makeDrink() = 0;
 };
 
 #endif

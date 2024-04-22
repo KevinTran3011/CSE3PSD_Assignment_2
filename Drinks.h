@@ -5,16 +5,17 @@
 #include <string>
 using namespace std;
 
-class Drink{
+class Drink {
+protected:
+    string description;
+    double price;
 
 public:
     virtual ~Drink() {}
-    virtual string getDescription() const = 0;
-    virtual double getPrice() const = 0;
-    virtual void setDescription(const string &desc) = 0;
-    virtual void setPrice(double p) = 0;
-
-
+    virtual string getDescription() const { return description; }
+    virtual double getPrice() const { return price; }
+    virtual void setDescription(const string &desc) { description = desc; }
+    virtual void setPrice(double p) { price = p; }
 };
 
 #endif
