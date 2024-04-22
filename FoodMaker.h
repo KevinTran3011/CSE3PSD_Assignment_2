@@ -8,6 +8,7 @@ using namespace std;
 
 class Food;
 
+
 class foodMaker{
     protected:
     Food *food;

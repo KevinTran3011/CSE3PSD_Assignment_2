@@ -1,62 +1,60 @@
-#ifndef COFFEE_H
-#define COFFEE_H
+#ifndef TEA_H
+#define TEA_H
 
 #include <iostream>
 #include <string>
 #include "Drinks.h"
 using namespace std;
 
-
-
-class Coffee: public Drink
+class Tea: public Drink
 {
+
 protected:
     string description;
     double price;
 
 public:
-    virtual ~Coffee() {}
+    virtual ~Tea() {}
     virtual string getDescription() const { return description; }
     virtual double getPrice() const { return price; }
     virtual void setDescription(const string &desc) { description = desc; }
     virtual void setPrice(double p) { price = p; }
 };
 
-// Concrete Coffee class for Black Coffee
-class BlackCoffee : public Coffee
+// Concrete Tea class for Black Tea
+class BlackTea : public Tea
 {
 public:
-    BlackCoffee()
+    BlackTea()
     {
-        setDescription("Black Coffee");
+        setDescription("Black Tea");
         setPrice(2.0);
     }
 };
 
-// Concrete Coffee class for White Coffee
-class WhiteCoffee : public Coffee
+// Concrete Tea class for White Tea
+class WhiteTea : public Tea
 {
 public:
-    WhiteCoffee()
+    WhiteTea()
     {
-        setDescription("White Coffee");
+        setDescription("White Tea");
         setPrice(2.5);
     }
 };
 
-// Coffee Factory
-class CoffeeFactory
+class TeaFactory
 {
 public:
-    static Coffee *createCoffee(const string &type)
+    static Tea *createTea(const string &type)
     {
         if (type == "black")
-            return new BlackCoffee();
+            return new BlackTea();
         else if (type == "white")
-            return new WhiteCoffee();
+            return new WhiteTea();
         else
             return nullptr;
     }
 };
 
-#endif //
+#endif
