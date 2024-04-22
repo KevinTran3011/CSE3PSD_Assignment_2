@@ -6,21 +6,43 @@ using namespace std;
 #include "CoffeeMaker.h"
 
 int main() {
-    // Making a Matcha Tea with milk and sugar
-    TeaMaker matchaMaker("matcha", true, true);
-    matchaMaker.makeDrink();
+    string drinkType;
+    string teaType;
+    string coffeeType;
+    string addMilkInput;
+    string addSugarInput;
+    bool addMilk;
+    bool addSugar;
 
-    // Making a Chai Tea without milk but with sugar
-    TeaMaker chaiMaker("chai", false, true);
-    chaiMaker.makeDrink();
+    cout << "Enter drink type (tea or coffee): ";
+    cin >> drinkType;
 
-    // Making a Black Coffee with milk and sugar
-    CoffeeMaker blackCoffeeMaker("black", true, true);
-    blackCoffeeMaker.makeDrink();
+    if (drinkType == "tea") {
+        cout << "What type of tea (chai or matcha): ";
+        cin >> teaType;
+    } else if (drinkType == "coffee") {
+        cout << "What type of coffee (black or white): ";
+        cin >> coffeeType;
+    } else {
+        cout << "Invalid drink type. Please enter 'tea' or 'coffee'.\n";
+        return 1;
+    }
 
-    // Making a White Coffee without milk but with sugar
-    CoffeeMaker whiteCoffeeMaker("white", false, true);
-    whiteCoffeeMaker.makeDrink();
+    cout << "Add milk? (Y/N): ";
+    cin >> addMilkInput;
+    addMilk = (addMilkInput == "Y" || addMilkInput == "y");
+
+    cout << "Add sugar? (Y/N): ";
+    cin >> addSugarInput;
+    addSugar = (addSugarInput == "Y" || addSugarInput == "y");
+
+    if (drinkType == "tea") {
+        TeaMaker teaMaker(teaType, addMilk, addSugar);
+        teaMaker.makeDrink();
+    } else {
+        CoffeeMaker coffeeMaker(coffeeType, addMilk, addSugar);
+        coffeeMaker.makeDrink();
+    }
 
     return 0;
 }
