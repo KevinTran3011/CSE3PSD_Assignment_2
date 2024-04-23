@@ -10,7 +10,7 @@ using namespace std;
 class TeaMaker : public DrinkMaker
 {
 public:
-    TeaMaker(string teaType, bool addMilk, bool addSugar) 
+    TeaMaker(string teaType, bool addMilk, bool addSugar)
         : DrinkMaker(TeaFactory::createTea(teaType), addMilk, addSugar) {}
 
     virtual void boilWater() const

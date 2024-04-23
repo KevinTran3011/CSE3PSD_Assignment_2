@@ -5,10 +5,12 @@
 #include <string>
 using namespace std;
 
-class Drink {
+class Drink
+{
 protected:
     string description;
     double price;
+    bool takeawayAvailable;
 
 public:
     virtual ~Drink() {}
@@ -16,6 +18,7 @@ public:
     virtual double getPrice() const { return price; }
     virtual void setDescription(const string &desc) { description = desc; }
     virtual void setPrice(double p) { price = p; }
+    virtual bool isTakeawayAvailable() const { return takeawayAvailable; }
 };
 
 #endif
