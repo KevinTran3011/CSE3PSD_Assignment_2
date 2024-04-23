@@ -8,7 +8,7 @@
 using namespace std;
 
 class Food;
-
+class Visitor;
 
 class foodMaker{
     protected:
@@ -38,15 +38,10 @@ class foodMaker{
         cout << "Ingredients: " << food->getDescription() << endl;
     };
 
-    virtual void assembleFood() const{
-        cout << "Assembling " << food->getName() << endl;
-    }
 
-    void makeFood(){
-        getIngredients();
-        assembleFood();
 
-        cout << "Final food" << food->getName() << " - $" << food->getPrice() << endl;
+    virtual void accept(Visitor* visitor) {
+        visitor->visit(this);
     }
 
 };

@@ -4,7 +4,13 @@
 #include <vector>
 #include "DrinkMaker.h"
 #include "FoodMaker.h"
+using namespace std;
 
+
+class DrinkMaker;
+class foodMaker;
+
+class Visitor; 
 class Visitor {
 public:
     virtual void visit(DrinkMaker* drink) = 0;
@@ -24,8 +30,9 @@ public:
 
 class Order {
 private:
-    std::vector<DrinkMaker*> drinks;
-    std::vector<foodMaker*> foods;
+    vector<DrinkMaker*> drinks;
+    vector<foodMaker*> foods;
+    double totalPrice = 0.0;
 
 public:
     void addDrink(DrinkMaker* drink) {
@@ -44,6 +51,17 @@ public:
         for (auto& food : foods) {
             food->accept(&visitor);
         }
+    }
+
+        double getTotalPrice() const {
+        double total = 0.0;
+        for (auto drink : drinks) {
+            total += drink->getDrink()->getPrice();
+        }
+        for (auto food : foods) {
+            total += food->getFood()->getPrice();
+        }
+        return total;
     }
 };
 
