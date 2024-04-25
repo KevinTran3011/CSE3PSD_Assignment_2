@@ -26,7 +26,7 @@ void OrderTester::runTests()
     order.addItem(coffeeItem);
 
     // // 1 matcha with no milk no sugar
-    TeaMaker *matchaTeaMaker = new ChaiMaker(true, true);
+    TeaMaker *matchaTeaMaker = new MatchaTeaMaker(true, false);
     OrderItem *teaItem = new OrderItem(matchaTeaMaker);
     order.addItem(teaItem);
 

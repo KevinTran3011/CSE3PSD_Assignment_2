@@ -36,12 +36,21 @@ public:
             if (item->getFoodMaker())
             {
                 total += item->getFoodMaker()->getFood()->getPrice();
+                std::cout << "   You have ordered: " << item->getFoodMaker()->getFood()->getName()
+                          << "  Price: " << item->getFoodMaker()->getFood()->getPrice()
+                          << "  Takeaway Available: " << (item->getFoodMaker()->getFood()->isTakeawayAvailable() ? "Yes" : "No")
+                          << std::endl;
             }
             else if (item->getDrinkMaker())
             {
                 total += item->getDrinkMaker()->getDrink()->getPrice();
+                std::cout << "   You have ordered: " << item->getDrinkMaker()->getDrink()->getDescription()
+                          << "  Price: " << item->getDrinkMaker()->getDrink()->getPrice()
+                          << "  Takeaway Available: " << (item->getDrinkMaker()->getDrink()->isTakeawayAvailable() ? "Yes" : "No")
+                          << std::endl;
             }
         }
+
         return total;
     }
 };

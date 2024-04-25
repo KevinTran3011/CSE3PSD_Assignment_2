@@ -17,7 +17,10 @@ private:
     Drink *drink;
 
 public:
-    MilkDecorator(Drink *drink) : drink(drink) {}
+    MilkDecorator(Drink *drink) : drink(drink)
+    {
+        this->takeawayAvailable = drink->isTakeawayAvailable();
+    }
 
     double getPrice() const override
     {
@@ -36,7 +39,10 @@ private:
     Drink *drink;
 
 public:
-    SugarDecorator(Drink *drink) : drink(drink) {}
+    SugarDecorator(Drink *drink) : drink(drink)
+    {
+        this->takeawayAvailable = drink->isTakeawayAvailable();
+    }
 
     double getPrice() const override
     {
@@ -77,13 +83,17 @@ protected:
 public:
     DrinkMaker(Drink *drink = nullptr, bool addMilk = false, bool addSugar = false) : drink(drink)
     {
+        bool takeawayAvailable = drink ? drink->isTakeawayAvailable() : false;
+
         if (addMilk)
         {
             this->drink = new MilkDecorator(this->drink);
+            this->drink->setTakeawayAvailable(takeawayAvailable);
         }
         if (addSugar)
         {
             this->drink = new SugarDecorator(this->drink);
+            this->drink->setTakeawayAvailable(takeawayAvailable);
         }
     }
 
@@ -95,6 +105,11 @@ public:
     Drink *getDrink() const
     {
         return drink;
+    }
+
+    virtual string getName() const
+    {
+        return "Default Drink";
     }
 
     virtual void makeDrink() = 0;

@@ -26,6 +26,10 @@ public:
             {
                 item->getDrinkMaker()->getDrink()->setPrice(item->getDrinkMaker()->getDrink()->getPrice() * 1.1);
             }
+            else
+            {
+                cout << "You can't order " << item->getDrinkMaker()->getDrink()->getDescription() << " for takeaway.\n";
+            }
         }
     }
 };

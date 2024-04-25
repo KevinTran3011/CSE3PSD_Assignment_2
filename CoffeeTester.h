@@ -10,32 +10,23 @@ class CoffeeTester
 public:
     static void test()
     {
-        
-        BlackCoffeeMaker blackCoffeeMaker(false, false);
-        blackCoffeeMaker.makeCoffee();
-        Coffee *blackCoffee = blackCoffeeMaker.getCoffee();
-        cout << blackCoffee->getDescription() << " - $" << blackCoffee->getPrice() << "\n";
 
-        
-        BlackCoffeeMaker milkedBlackCoffeeMaker(true, false);
-        milkedBlackCoffeeMaker.makeCoffee();
-        Coffee *milkedBlackCoffee = milkedBlackCoffeeMaker.getCoffee();
-        cout << milkedBlackCoffee->getDescription() << " - $" << milkedBlackCoffee->getPrice() << "\n";
+        // Create a Coffee object using the CoffeeFactory
+        Coffee *coffee = CoffeeFactory::createCoffee("white");
+        if (coffee != nullptr)
+        {
+            // Call isTakeawayAvailable() and print the result
+            cout << "Is takeaway available for white coffee? " << (coffee->isTakeawayAvailable() ? "Yes" : "No") << endl;
+            delete coffee;
+        }
 
-        
-        BlackCoffeeMaker sugaredBlackCoffeeMaker(false, true);
-        sugaredBlackCoffeeMaker.makeCoffee();
-        Coffee *sugaredBlackCoffee = sugaredBlackCoffeeMaker.getCoffee();
-        cout << sugaredBlackCoffee->getDescription() << " - $" << sugaredBlackCoffee->getPrice() << "\n";
-
-       
-        BlackCoffeeMaker milkedSugaredBlackCoffeeMaker(true, true);
-        milkedSugaredBlackCoffeeMaker.makeCoffee();
-        Coffee *milkedSugaredBlackCoffee = milkedSugaredBlackCoffeeMaker.getCoffee();
-        cout << milkedSugaredBlackCoffee->getDescription() << " - $" << milkedSugaredBlackCoffee->getPrice() << "\n";
-
-        
+        coffee = CoffeeFactory::createCoffee("black");
+        if (coffee != nullptr)
+        {
+            cout << "Is takeaway available for black coffee? " << (coffee->isTakeawayAvailable() ? "Yes" : "No") << endl;
+            delete coffee;
+        }
     }
 };
 
-#endif 
+#endif

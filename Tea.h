@@ -15,9 +15,10 @@ class MatchaTea : public Tea
 public:
     MatchaTea()
     {
-        setDescription("Matcha Tea");
+        setName("Matcha Tea");
+        setDescription("Matcha  green  Tea");
         setPrice(3.0);
-        takeawayAvailable = true;
+        setTakeawayAvailable(false);
     }
 };
 
@@ -26,9 +27,10 @@ class Chai : public Tea
 public:
     Chai()
     {
-        setDescription("Chai Tea");
+        setName("Chai");
+        setDescription("Chai");
         setPrice(2.5);
-        takeawayAvailable = false;
+        setTakeawayAvailable(true);
     }
 };
 

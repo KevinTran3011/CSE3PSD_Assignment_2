@@ -11,7 +11,7 @@ class CoffeeMaker : public DrinkMaker
 {
 public:
     CoffeeMaker(string coffeeType, bool addMilk, bool addSugar)
-        : DrinkMaker(nullptr) // Call DrinkMaker constructor with nullptr
+        : DrinkMaker(nullptr)
     {
         Coffee *coffee = CoffeeFactory::createCoffee(coffeeType);
         if (coffee == nullptr)
@@ -27,6 +27,11 @@ public:
         {
             this->drink = new SugarDecorator(this->drink);
         }
+    }
+
+    string getName() const override
+    {
+        return drink->getName();
     }
 
     virtual void boilWater() const
@@ -58,12 +63,20 @@ class BlackCoffeeMaker : public CoffeeMaker
 {
 public:
     BlackCoffeeMaker(bool addMilk, bool addSugar) : CoffeeMaker("black", addMilk, addSugar) {}
+    string getName() const override
+    {
+        return "Black Coffee";
+    }
 };
 
 class WhiteCoffeeMaker : public CoffeeMaker
 {
 public:
     WhiteCoffeeMaker(bool addMilk, bool addSugar) : CoffeeMaker("white", addMilk, addSugar) {}
+    string getName() const override
+    {
+        return "White Coffee";
+    }
 };
 
 #endif

@@ -8,6 +8,11 @@ class Coffee : public Drink
 {
 public:
     virtual ~Coffee() {}
+    bool isTakeawayAvailable() const override
+    {
+        // Set breakpoint here
+        return takeawayAvailable;
+    }
 };
 
 class BlackCoffee : public Coffee
@@ -15,9 +20,10 @@ class BlackCoffee : public Coffee
 public:
     BlackCoffee()
     {
-        setDescription("Black Coffee");
+        setName("Black Coffee");
+        setDescription("Black coffee ");
         setPrice(2.0);
-        takeawayAvailable = true;
+        setTakeawayAvailable(true);
     }
 };
 
@@ -26,9 +32,10 @@ class WhiteCoffee : public Coffee
 public:
     WhiteCoffee()
     {
+        setName("White Coffee");
         setDescription("White Coffee");
         setPrice(2.5);
-        takeawayAvailable = true;
+        setTakeawayAvailable(true);
     }
 };
 
