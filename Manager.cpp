@@ -56,7 +56,6 @@ public:
                         if (!itemAdded)
                         {
                             std::cout << "Failed to add sandwich to the order.\n";
-                            delete sandwichItem;
                             continue;
                         }
                         if (takeaway)
@@ -137,7 +136,6 @@ public:
                         if (!itemAdded)
                         {
                             std::cout << "Failed to add tea to the order.\n";
-                            delete teaItem;
                             continue;
                         }
                         if (takeaway)
@@ -156,7 +154,6 @@ public:
                         if (!itemAdded)
                         {
                             std::cout << "Failed to add coffee to the order.\n";
-                            delete coffeeItem;
                             continue;
                         }
                         if (takeaway)

@@ -32,7 +32,7 @@ public:
         setName("Sandwich");
         setDescription("2 slices of bread with scrambled eggs, crispy bacon, melted cheese, and lettuce");
         setPrice(5.0);
-        takeawayAvailable = isTakeaway ? false : true; // Sandwiches are available for takeaway
+        takeawayAvailable = isTakeaway ? true : false; // Sandwiches are available for takeaway
     }
 };
 
