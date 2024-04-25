@@ -16,7 +16,19 @@ private:
 public:
     void addItem(OrderItem *item)
     {
-        items.push_back(item);
+        if (item->getFoodMaker() && item->getFoodMaker()->getFood()->isTakeawayAvailable())
+        {
+            items.push_back(item);
+        }
+        else if (item->getDrinkMaker() && item->getDrinkMaker()->getDrink()->isTakeawayAvailable())
+        {
+            items.push_back(item);
+        }
+        else
+        {
+            cout << "This item is not available for takeaway and will not be added to the order.\n";
+            delete item; // delete the item if it's not added to the order
+        }
     }
 
     void applyTakeawayCharge()
@@ -44,15 +56,14 @@ public:
             else if (item->getDrinkMaker())
             {
                 total += item->getDrinkMaker()->getDrink()->getPrice();
-                std::cout << "   You have ordered: " << item->getDrinkMaker()->getDrink()->getDescription()
+                std::cout << "   You have ordered: " << item->getDrinkMaker()->getDrink()->getName()
                           << "  Price: " << item->getDrinkMaker()->getDrink()->getPrice()
                           << "  Takeaway Available: " << (item->getDrinkMaker()->getDrink()->isTakeawayAvailable() ? "Yes" : "No")
                           << std::endl;
             }
         }
-
         return total;
     }
 };
 
-#endif
+#endif;
