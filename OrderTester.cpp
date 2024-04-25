@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include "OrderTester.h"
 #include "FoodMaker.h"
@@ -12,22 +11,22 @@ void OrderTester::runTests()
 
     // 1 food that is valid for take Away
     FoodMaker *sandwichMaker = new SandwichMaker();
-    OrderItem *sandwichItem = new OrderItem(sandwichMaker);
+    OrderItem *sandwichItem = new OrderItem(sandwichMaker, nullptr);
     order.addItem(sandwichItem);
 
     // 1 food that is not
     FoodMaker *tiramisuMaker = new TiramisuMaker();
-    OrderItem *tiramisuItem = new OrderItem(tiramisuMaker);
+    OrderItem *tiramisuItem = new OrderItem(tiramisuMaker, nullptr);
     order.addItem(tiramisuItem);
 
     // 1 black coffee with milk no sugar
     CoffeeMaker *blackCoffeeMaker = new BlackCoffeeMaker(true, false);
-    OrderItem *coffeeItem = new OrderItem(blackCoffeeMaker);
+    OrderItem *coffeeItem = new OrderItem(nullptr, blackCoffeeMaker);
     order.addItem(coffeeItem);
 
-    // // 1 matcha with no milk no sugar
+    // 1 matcha with no milk no sugar
     TeaMaker *matchaTeaMaker = new MatchaTeaMaker(true, false);
-    OrderItem *teaItem = new OrderItem(matchaTeaMaker);
+    OrderItem *teaItem = new OrderItem(nullptr, matchaTeaMaker);
     order.addItem(teaItem);
 
     // Apply takeaway charge

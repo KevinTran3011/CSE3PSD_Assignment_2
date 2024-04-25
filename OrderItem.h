@@ -12,28 +12,22 @@ private:
     DrinkMaker *drinkMaker;
 
 public:
-    OrderItem(FoodMaker *foodMaker) : foodMaker(foodMaker), drinkMaker(nullptr)
+    OrderItem(FoodMaker *foodMaker = nullptr, DrinkMaker *drinkMaker = nullptr)
+        : foodMaker(foodMaker), drinkMaker(drinkMaker)
     {
-        if (foodMaker == nullptr)
+        if (foodMaker == nullptr && drinkMaker == nullptr)
         {
-            throw std::invalid_argument("OrderItem must have a FoodMaker");
+            throw std::invalid_argument("OrderItem must have a FoodMaker or a DrinkMaker");
         }
-        if (!foodMaker->getFood()->isTakeawayAvailable())
+        if (foodMaker && !foodMaker->getFood()->isTakeawayAvailable())
         {
             cout << "You can't order " << foodMaker->getFood()->getDescription() << " for takeaway.\n";
-            foodMaker = nullptr; // set foodMaker to nullptr
+            this->foodMaker = nullptr; // set foodMaker to nullptr
         }
-    }
-    OrderItem(DrinkMaker *drinkMaker) : foodMaker(nullptr), drinkMaker(drinkMaker)
-    {
-        if (drinkMaker == nullptr)
-        {
-            throw std::invalid_argument("OrderItem must have a DrinkMaker");
-        }
-        if (!drinkMaker->getDrink()->isTakeawayAvailable())
+        if (drinkMaker && !drinkMaker->getDrink()->isTakeawayAvailable())
         {
             cout << "You can't order " << drinkMaker->getDrink()->getDescription() << " for takeaway.\n";
-            drinkMaker = nullptr; // set drinkMaker to nullptr
+            this->drinkMaker = nullptr; // set drinkMaker to nullptr
         }
     }
 
