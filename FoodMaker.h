@@ -12,9 +12,9 @@ protected:
     Food *food;
 
 public:
-    FoodMaker(string foodType) : food(nullptr)
+    FoodMaker(string foodType, bool isTakeaway) : food(nullptr)
     {
-        food = FoodFactory::createFood(foodType);
+        food = FoodFactory::createFood(foodType, isTakeaway);
     }
 
     virtual ~FoodMaker()
@@ -39,13 +39,13 @@ public:
 class SandwichMaker : public FoodMaker
 {
 public:
-    SandwichMaker() : FoodMaker("sandwich") {}
+    SandwichMaker(bool isTakeaway) : FoodMaker("sandwich", isTakeaway) {}
 };
 
 class TiramisuMaker : public FoodMaker
 {
 public:
-    TiramisuMaker() : FoodMaker("tiramisu") {}
+    TiramisuMaker(bool isTakeaway) : FoodMaker("tiramisu", isTakeaway) {}
 };
 
 #endif

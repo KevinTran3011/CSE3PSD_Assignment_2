@@ -31,6 +31,11 @@ public:
         }
     }
 
+    double getTotalItems() const
+    {
+        return items.size();
+    };
+
     void applyTakeawayCharge()
     {
         TakeawayChargeVisitor visitor;

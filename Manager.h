@@ -5,9 +5,11 @@
 #include "OrderItem.h"
 #include "FoodMaker.h"
 #include "DrinkMaker.h"
+#include "TakeAwayChargeVisitor.h"
 
 class Order;
 class OrderItem;
+class TakeawayChargeVisitor;
 
 class Manager
 {

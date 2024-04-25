@@ -35,7 +35,7 @@ public:
         setName("White Coffee");
         setDescription("White Coffee");
         setPrice(2.5);
-        setTakeawayAvailable(true);
+        setTakeawayAvailable(false);
     }
 };
 

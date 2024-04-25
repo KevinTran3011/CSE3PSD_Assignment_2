@@ -9,26 +9,42 @@ class TakeawayChargeVisitor : public Visitor
 public:
     void visit(OrderItem *item)
     {
-        if (item->getFoodMaker())
+        if (item && item->getFoodMaker())
         {
-            if (item->getFoodMaker()->getFood()->isTakeawayAvailable())
+            Food *food = item->getFoodMaker()->getFood();
+            if (food)
             {
-                item->getFoodMaker()->getFood()->setPrice(item->getFoodMaker()->getFood()->getPrice() * 1.1);
+                if (food->isTakeawayAvailable())
+                {
+                    food->setPrice(food->getPrice() * 1.1);
+                }
+                else
+                {
+                    cout << "You can't order " << food->getName() << " for takeaway.\n";
+                }
             }
             else
             {
-                cout << "You can't order " << item->getFoodMaker()->getFood()->getName() << " for takeaway.\n";
+                cout << "Food is not available.\n";
             }
         }
-        else if (item->getDrinkMaker())
+        else if (item && item->getDrinkMaker())
         {
-            if (item->getDrinkMaker()->getDrink()->isTakeawayAvailable())
+            Drink *drink = item->getDrinkMaker()->getDrink();
+            if (drink)
             {
-                item->getDrinkMaker()->getDrink()->setPrice(item->getDrinkMaker()->getDrink()->getPrice() * 1.1);
+                if (drink->isTakeawayAvailable())
+                {
+                    drink->setPrice(drink->getPrice() * 1.1);
+                }
+                else
+                {
+                    cout << "You can't order " << drink->getDescription() << " for takeaway.\n";
+                }
             }
             else
             {
-                cout << "You can't order " << item->getDrinkMaker()->getDrink()->getDescription() << " for takeaway.\n";
+                cout << "Drink is not available.\n";
             }
         }
     }

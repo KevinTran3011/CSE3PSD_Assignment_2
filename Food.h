@@ -27,37 +27,37 @@ public:
 class Sandwich : public Food
 {
 public:
-    Sandwich()
+    Sandwich(bool isTakeaway)
     {
         setName("Sandwich");
         setDescription("2 slices of bread with scrambled eggs, crispy bacon, melted cheese, and lettuce");
         setPrice(5.0);
-        takeawayAvailable = true; // Sandwiches are available for takeaway
+        takeawayAvailable = isTakeaway ? false : true; // Sandwiches are available for takeaway
     }
 };
 
 class Tiramisu : public Food
 {
 public:
-    Tiramisu()
+    Tiramisu(bool isTakeaway)
     {
         setName("Tiramisu");
         setDescription("A coffee-flavored Italian dessert made from ladyfinger cookies dipped in coffee, with layers of mascarpone cheese");
         setPrice(4.0);
-        takeawayAvailable = false; // Tiramisu is not available for takeaway
+        takeawayAvailable = isTakeaway ? false : true; // Tiramisu is not available for takeaway
     }
 };
 
 class FoodFactory
 {
 public:
-    static Food *createFood(const string &foodType)
+    static Food *createFood(const string &foodType, bool isTakeaway)
     {
         if (foodType == "sandwich")
-            return new Sandwich();
+            return new Sandwich(isTakeaway);
         else if (foodType == "tiramisu")
 
-            return new Tiramisu();
+            return new Tiramisu(isTakeaway);
         else
         {
             cout << "We don't recognize this food type" << endl;
