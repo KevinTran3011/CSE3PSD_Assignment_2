@@ -20,13 +20,13 @@ void OrderTester::runTests()
     OrderItem *tiramisuItem = new OrderItem(tiramisuMaker);
     order.addItem(tiramisuItem);
 
-    // // 1 black coffee with milk no sugar
+    // 1 black coffee with milk no sugar
     CoffeeMaker *blackCoffeeMaker = new BlackCoffeeMaker(true, false);
     OrderItem *coffeeItem = new OrderItem(blackCoffeeMaker);
     order.addItem(coffeeItem);
 
     // // 1 matcha with no milk no sugar
-    TeaMaker *matchaTeaMaker = new MatchaTeaMaker(false, false);
+    TeaMaker *matchaTeaMaker = new ChaiMaker(true, true);
     OrderItem *teaItem = new OrderItem(matchaTeaMaker);
     order.addItem(teaItem);
 

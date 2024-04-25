@@ -75,7 +75,7 @@ protected:
     Drink *drink;
 
 public:
-    DrinkMaker(Drink *drink, bool addMilk, bool addSugar) : drink(drink)
+    DrinkMaker(Drink *drink = nullptr, bool addMilk = false, bool addSugar = false) : drink(drink)
     {
         if (addMilk)
         {

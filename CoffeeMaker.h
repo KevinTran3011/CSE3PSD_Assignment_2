@@ -11,7 +11,23 @@ class CoffeeMaker : public DrinkMaker
 {
 public:
     CoffeeMaker(string coffeeType, bool addMilk, bool addSugar)
-        : DrinkMaker(CoffeeFactory::createCoffee(coffeeType), addMilk, addSugar) {}
+        : DrinkMaker(nullptr) // Call DrinkMaker constructor with nullptr
+    {
+        Coffee *coffee = CoffeeFactory::createCoffee(coffeeType);
+        if (coffee == nullptr)
+        {
+            throw std::invalid_argument("Invalid coffee type");
+        }
+        drink = coffee;
+        if (addMilk)
+        {
+            this->drink = new MilkDecorator(this->drink);
+        }
+        if (addSugar)
+        {
+            this->drink = new SugarDecorator(this->drink);
+        }
+    }
 
     virtual void boilWater() const
     {
@@ -41,13 +57,13 @@ public:
 class BlackCoffeeMaker : public CoffeeMaker
 {
 public:
-    BlackCoffeeMaker(bool addMilk, bool addSugar) : CoffeeMaker("Black", addMilk, addSugar) {}
+    BlackCoffeeMaker(bool addMilk, bool addSugar) : CoffeeMaker("black", addMilk, addSugar) {}
 };
 
 class WhiteCoffeeMaker : public CoffeeMaker
 {
 public:
-    WhiteCoffeeMaker(bool addMilk, bool addSugar) : CoffeeMaker("White", addMilk, addSugar) {}
+    WhiteCoffeeMaker(bool addMilk, bool addSugar) : CoffeeMaker("white", addMilk, addSugar) {}
 };
 
 #endif
