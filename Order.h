@@ -27,7 +27,7 @@ public:
         else
         {
             cout << "This item is not available for takeaway and will not be added to the order.\n";
-            delete item; // delete the item if it's not added to the order
+            delete item;
         }
     }
 
@@ -56,7 +56,7 @@ public:
             else if (item->getDrinkMaker())
             {
                 total += item->getDrinkMaker()->getDrink()->getPrice();
-                std::cout << "   You have ordered: " << item->getDrinkMaker()->getDrink()->getName()
+                std::cout << "   You have ordered: " << item->getDrinkMaker()->getDrink()->getDescription()
                           << "  Price: " << item->getDrinkMaker()->getDrink()->getPrice()
                           << "  Takeaway Available: " << (item->getDrinkMaker()->getDrink()->isTakeawayAvailable() ? "Yes" : "No")
                           << std::endl;
