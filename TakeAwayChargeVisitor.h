@@ -17,7 +17,7 @@ public:
             }
             else
             {
-                cout << "You can't order " << item->getFoodMaker()->getFood()->getDescription() << " for takeaway.\n";
+                cout << "You can't order " << item->getFoodMaker()->getFood()->getName() << " for takeaway.\n";
             }
         }
         else if (item->getDrinkMaker())
