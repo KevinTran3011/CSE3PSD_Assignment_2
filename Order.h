@@ -14,20 +14,37 @@ private:
     std::vector<OrderItem *> items;
 
 public:
-    void addItem(OrderItem *item)
+    bool addItem(OrderItem *item)
     {
         if (item->getFoodMaker() && item->getFoodMaker()->getFood()->isTakeawayAvailable())
         {
             items.push_back(item);
+            return true;
         }
         else if (item->getDrinkMaker() && item->getDrinkMaker()->getDrink()->isTakeawayAvailable())
         {
             items.push_back(item);
+            return true;
         }
         else
         {
-            cout << "This item is not available for takeaway and will not be added to the order.\n";
-            delete item;
+            std::cout << "This item is not available for takeaway and will not be added to the order.\n";
+            if (item->getFoodMaker())
+            {
+                std::cout << "   You tried to order: " << item->getFoodMaker()->getFood()->getName()
+                          << "  Price: " << item->getFoodMaker()->getFood()->getPrice()
+                          << "  Takeaway Available: " << (item->getFoodMaker()->getFood()->isTakeawayAvailable() ? "Yes" : "No")
+                          << std::endl;
+            }
+            else if (item->getDrinkMaker())
+            {
+                std::cout << "   You tried to order: " << item->getDrinkMaker()->getDrink()->getDescription()
+                          << "  Price: " << item->getDrinkMaker()->getDrink()->getPrice()
+                          << "  Takeaway Available: " << (item->getDrinkMaker()->getDrink()->isTakeawayAvailable() ? "Yes" : "No")
+                          << std::endl;
+            }
+            delete item; // Delete the item that is not added to the order
+            return false;
         }
     }
 

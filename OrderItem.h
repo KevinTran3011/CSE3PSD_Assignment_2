@@ -10,30 +10,31 @@ class OrderItem
 private:
     FoodMaker *foodMaker;
     DrinkMaker *drinkMaker;
+    bool isTakeawayAvailable;
 
 public:
     OrderItem(FoodMaker *foodMaker = nullptr, DrinkMaker *drinkMaker = nullptr)
-        : foodMaker(foodMaker), drinkMaker(drinkMaker)
+        : foodMaker(foodMaker), drinkMaker(drinkMaker), isTakeawayAvailable(true)
     {
         if (foodMaker == nullptr && drinkMaker == nullptr)
         {
             throw std::invalid_argument("OrderItem must have a FoodMaker or a DrinkMaker");
         }
-        if (foodMaker && !foodMaker->getFood()->isTakeawayAvailable())
+        if (foodMaker && foodMaker->getFood() && !foodMaker->getFood()->isTakeawayAvailable())
         {
-            cout << "You can't order " << foodMaker->getFood()->getDescription() << " for takeaway.\n";
-            this->foodMaker = nullptr; // set foodMaker to nullptr
+            cout << "You can't order " << foodMaker->getFood()->getName() << " for takeaway.\n";
+            isTakeawayAvailable = false;
         }
-        if (drinkMaker && !drinkMaker->getDrink()->isTakeawayAvailable())
+        if (drinkMaker && drinkMaker->getDrink() && !drinkMaker->getDrink()->isTakeawayAvailable())
         {
             cout << "You can't order " << drinkMaker->getDrink()->getDescription() << " for takeaway.\n";
-            this->drinkMaker = nullptr; // set drinkMaker to nullptr
+            isTakeawayAvailable = false;
         }
     }
 
     void accept(Visitor *visitor)
     {
-        if (foodMaker || drinkMaker) // only accept visitor if foodMaker or drinkMaker is not nullptr
+        if (isTakeawayAvailable && (foodMaker || drinkMaker)) // only accept visitor if foodMaker or drinkMaker is not nullptr and the item is available for takeaway
         {
             visitor->visit(this);
         }
@@ -50,4 +51,4 @@ public:
     }
 };
 
-#endif
+#endif // ORDERITEM_H

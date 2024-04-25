@@ -18,9 +18,9 @@ public:
     {
         return new OrderItem(foodMaker, drinkMaker);
     };
-    void addItemToOrder(Order &order, OrderItem *item)
+    bool addItemToOrder(Order &order, OrderItem *item)
     {
-        order.addItem(item);
+        return order.addItem(item);
     };
     double calculateTotal(Order &order)
     {

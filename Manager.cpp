@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "TakeAwayChargeVisitor.h" take
+#include "TakeAwayChargeVisitor.h"
 #include "Manager.h"
 #include "FoodMaker.h"
 #include "CoffeeMaker.h"
@@ -50,20 +50,37 @@ public:
                 {
                     SandwichMaker *sandwichMaker = new SandwichMaker(takeaway);
                     OrderItem *sandwichItem = manager.createOrderItem(sandwichMaker, nullptr);
-                    manager.addItemToOrder(order, sandwichItem);
-                    if (takeaway)
+                    if (sandwichItem != nullptr)
                     {
-                        sandwichItem->accept(&takeawayVisitor);
+                        bool itemAdded = manager.addItemToOrder(order, sandwichItem);
+                        if (!itemAdded)
+                        {
+                            std::cout << "Failed to add sandwich to the order.\n";
+                            delete sandwichItem;
+                            continue;
+                        }
+                        if (takeaway)
+                        {
+                            sandwichItem->accept(&takeawayVisitor);
+                        }
                     }
                 }
                 else if (foodType == "tiramisu")
                 {
                     TiramisuMaker *tiramisuMaker = new TiramisuMaker(takeaway);
                     OrderItem *tiramisuItem = manager.createOrderItem(tiramisuMaker, nullptr);
-                    manager.addItemToOrder(order, tiramisuItem);
-                    if (takeaway)
+                    if (tiramisuItem != nullptr)
                     {
-                        tiramisuItem->accept(&takeawayVisitor);
+                        bool itemAdded = manager.addItemToOrder(order, tiramisuItem);
+                        if (!itemAdded)
+                        {
+                            std::cout << "Failed to add tiramisu to the order.\n";
+                            continue;
+                        }
+                        if (takeaway)
+                        {
+                            tiramisuItem->accept(&takeawayVisitor);
+                        }
                     }
                 }
                 else
@@ -114,20 +131,38 @@ public:
                 {
                     TeaMaker *teaMaker = new TeaMaker(teaType, addMilk, addSugar);
                     OrderItem *teaItem = manager.createOrderItem(nullptr, teaMaker);
-                    manager.addItemToOrder(order, teaItem);
-                    if (takeaway)
+                    if (teaItem != nullptr)
                     {
-                        teaItem->accept(&takeawayVisitor);
+                        bool itemAdded = manager.addItemToOrder(order, teaItem);
+                        if (!itemAdded)
+                        {
+                            std::cout << "Failed to add tea to the order.\n";
+                            delete teaItem;
+                            continue;
+                        }
+                        if (takeaway)
+                        {
+                            teaItem->accept(&takeawayVisitor);
+                        }
                     }
                 }
                 else
                 {
                     CoffeeMaker *coffeeMaker = new CoffeeMaker(coffeeType, addMilk, addSugar);
                     OrderItem *coffeeItem = manager.createOrderItem(nullptr, coffeeMaker);
-                    manager.addItemToOrder(order, coffeeItem);
-                    if (takeaway)
+                    if (coffeeItem != nullptr)
                     {
-                        coffeeItem->accept(&takeawayVisitor);
+                        bool itemAdded = manager.addItemToOrder(order, coffeeItem);
+                        if (!itemAdded)
+                        {
+                            std::cout << "Failed to add coffee to the order.\n";
+                            delete coffeeItem;
+                            continue;
+                        }
+                        if (takeaway)
+                        {
+                            coffeeItem->accept(&takeawayVisitor);
+                        }
                     }
                 }
             }
