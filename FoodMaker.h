@@ -6,7 +6,6 @@
 #include "Food.h"
 using namespace std;
 
-class Visitor;
 class FoodMaker
 {
 protected:
@@ -35,11 +34,6 @@ public:
     {
         cout << "Ingredients: " << food->getDescription() << endl;
     };
-
-    virtual void accept(Visitor *visitor)
-    {
-        visitor->visit(this);
-    }
 };
 
 class SandwichMaker : public FoodMaker
@@ -53,7 +47,5 @@ class TiramisuMaker : public FoodMaker
 public:
     TiramisuMaker() : FoodMaker("tiramisu") {}
 };
-
-#include "Visitor.h"
 
 #endif

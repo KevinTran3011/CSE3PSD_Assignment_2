@@ -4,14 +4,12 @@
 #include "Drinks.h"
 #include "Tea.h"
 #include "Coffee.h"
-#include "Visitor.h"
 #include <iostream>
 #include <string>
 using namespace std;
 
 class Drink;
 class Order;
-class Visitor;
 
 class MilkDecorator : public Drink
 {
@@ -100,13 +98,6 @@ public:
     }
 
     virtual void makeDrink() = 0;
-
-    virtual void accept(Visitor *visitor)
-    {
-        visitor->visit(this);
-    }
 };
-
-#include "Visitor.h"
 
 #endif

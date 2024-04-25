@@ -1,21 +1,12 @@
 #ifndef VISITOR_H
 #define VISITOR_H
 
-class DrinkMaker;
-class FoodMaker;
+class OrderItem;
 
 class Visitor
 {
 public:
-    virtual void visit(DrinkMaker *drink) = 0;
-    virtual void visit(FoodMaker *food) = 0;
-};
-
-class TakeawayChargeVisitor : public Visitor
-{
-public:
-    void visit(DrinkMaker *drink) override;
-    void visit(FoodMaker *food) override;
+    virtual void visit(OrderItem *item) = 0;
 };
 
 #endif

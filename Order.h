@@ -1,53 +1,46 @@
 #ifndef ORDER_H
 #define ORDER_H
 
+#include <iostream>
 #include <vector>
-#include "DrinkMaker.h"
+#include "OrderItem.h"
+#include "TakeawayChargeVisitor.h"
 #include "FoodMaker.h"
-#include "Visitor.h"
-using namespace std;
+#include "DrinkMaker.h"
 
 class Order
 {
 private:
-    vector<DrinkMaker *> drinks;
-    vector<FoodMaker *> foods;
-    double totalPrice = 0.0;
+    std::vector<OrderItem *> items;
 
 public:
-    void addDrink(DrinkMaker *drink)
+    void addItem(OrderItem *item)
     {
-        drinks.push_back(drink);
-    }
-
-    void addFood(FoodMaker *food)
-    {
-        foods.push_back(food);
+        items.push_back(item);
     }
 
     void applyTakeawayCharge()
     {
         TakeawayChargeVisitor visitor;
-        for (auto drink : drinks)
+        for (auto item : items)
         {
-            drink->accept(&visitor);
-        }
-        for (auto food : foods)
-        {
-            food->accept(&visitor);
+            item->accept(&visitor);
         }
     }
 
     double getTotalPrice() const
     {
         double total = 0.0;
-        for (auto drink : drinks)
+        for (auto item : items)
         {
-            total += drink->getDrink()->getPrice();
-        }
-        for (auto food : foods)
-        {
-            total += food->getFood()->getPrice();
+            if (item->getFoodMaker())
+            {
+                total += item->getFoodMaker()->getFood()->getPrice();
+            }
+            else if (item->getDrinkMaker())
+            {
+                total += item->getDrinkMaker()->getDrink()->getPrice();
+            }
         }
         return total;
     }
