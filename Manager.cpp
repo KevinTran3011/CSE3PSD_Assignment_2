@@ -12,8 +12,6 @@ public:
     void runTests()
     {
         Manager manager;
-        Order order;
-        TakeawayChargeVisitor takeawayVisitor;
         bool takeaway = false;
 
         std::cout << "Welcome!\n";
@@ -25,6 +23,8 @@ public:
         {
             takeaway = true;
         }
+
+        Order order(takeaway); // Initialize the order with the takeaway parameter
 
         while (true)
         {
@@ -60,6 +60,7 @@ public:
                         }
                         if (takeaway)
                         {
+                            TakeawayChargeVisitor takeawayVisitor;
                             sandwichItem->accept(&takeawayVisitor);
                         }
                     }
@@ -78,6 +79,7 @@ public:
                         }
                         if (takeaway)
                         {
+                            TakeawayChargeVisitor takeawayVisitor;
                             tiramisuItem->accept(&takeawayVisitor);
                         }
                     }
@@ -140,6 +142,7 @@ public:
                         }
                         if (takeaway)
                         {
+                            TakeawayChargeVisitor takeawayVisitor;
                             teaItem->accept(&takeawayVisitor);
                         }
                     }
@@ -158,6 +161,7 @@ public:
                         }
                         if (takeaway)
                         {
+                            TakeawayChargeVisitor takeawayVisitor;
                             coffeeItem->accept(&takeawayVisitor);
                         }
                     }

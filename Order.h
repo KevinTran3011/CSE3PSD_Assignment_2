@@ -12,8 +12,11 @@ class Order
 {
 private:
     std::vector<OrderItem *> items;
+    bool isTakeaway; // Add this line
 
 public:
+    Order(bool isTakeaway) : isTakeaway(isTakeaway) {} // Add this line
+
     bool addItem(OrderItem *item)
     {
         if (item->getFoodMaker() && item->getFoodMaker()->getFood()->isTakeawayAvailable())
@@ -55,10 +58,13 @@ public:
 
     void applyTakeawayCharge()
     {
-        TakeawayChargeVisitor visitor;
-        for (auto item : items)
+        if (isTakeaway) // Add this line
         {
-            item->accept(&visitor);
+            TakeawayChargeVisitor visitor;
+            for (auto item : items)
+            {
+                item->accept(&visitor);
+            }
         }
     }
 
