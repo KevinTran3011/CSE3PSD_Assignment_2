@@ -13,7 +13,7 @@ private:
     bool isTakeawayAvailable;
 
 public:
-    OrderItem(FoodMaker *foodMaker = nullptr, DrinkMaker *drinkMaker = nullptr)
+    OrderItem(FoodMaker *foodMaker = nullptr, DrinkMaker *drinkMaker = nullptr, bool isTakeaway = false)
         : foodMaker(foodMaker), drinkMaker(drinkMaker), isTakeawayAvailable(true)
     {
         if (foodMaker == nullptr && drinkMaker == nullptr)

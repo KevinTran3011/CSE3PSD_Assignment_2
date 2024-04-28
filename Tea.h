@@ -18,7 +18,7 @@ public:
         setName("Matcha Tea");
         setDescription("Matcha  green  Tea");
         setPrice(3.0);
-        setTakeawayAvailable(false);
+        setTakeawayAvailable(true);
     }
 };
 

@@ -6,48 +6,47 @@ using namespace std;
 
 class Coffee : public Drink
 {
+protected:
+    bool takeawayAvailable;
+
 public:
     virtual ~Coffee() {}
-    bool isTakeawayAvailable() const override
-    {
-        // Set breakpoint here
-        return takeawayAvailable;
-    }
+    virtual bool isTakeawayAvailable() const override { return takeawayAvailable; }
 };
 
 class BlackCoffee : public Coffee
 {
 public:
-    BlackCoffee()
+    BlackCoffee(bool isTakeaway)
     {
         setName("Black Coffee");
-        setDescription("Black coffee ");
+        setDescription("Black coffee");
         setPrice(2.0);
-        setTakeawayAvailable(true);
+        takeawayAvailable = isTakeaway ? true : true;
     }
 };
 
 class WhiteCoffee : public Coffee
 {
 public:
-    WhiteCoffee()
+    WhiteCoffee(bool isTakeaway)
     {
         setName("White Coffee");
         setDescription("White Coffee");
         setPrice(2.5);
-        setTakeawayAvailable(false);
+        takeawayAvailable = isTakeaway ? false : true;
     }
 };
 
 class CoffeeFactory
 {
 public:
-    static Coffee *createCoffee(const string &type)
+    static Coffee *createCoffee(const string &type, bool isTakeaway)
     {
         if (type == "black")
-            return new BlackCoffee();
+            return new BlackCoffee(isTakeaway);
         else if (type == "white")
-            return new WhiteCoffee();
+            return new WhiteCoffee(isTakeaway);
         else
             return nullptr;
     }

@@ -12,8 +12,6 @@ public:
     void runTests()
     {
         Manager manager;
-        Order order;
-        TakeawayChargeVisitor takeawayVisitor;
         bool takeaway = false;
 
         std::cout << "Welcome!\n";
@@ -25,6 +23,8 @@ public:
         {
             takeaway = true;
         }
+
+        Order order(takeaway); // Initialize the order with the takeaway parameter
 
         while (true)
         {
@@ -60,6 +60,7 @@ public:
                         }
                         if (takeaway)
                         {
+                            TakeawayChargeVisitor takeawayVisitor;
                             sandwichItem->accept(&takeawayVisitor);
                         }
                     }
@@ -78,6 +79,7 @@ public:
                         }
                         if (takeaway)
                         {
+                            TakeawayChargeVisitor takeawayVisitor;
                             tiramisuItem->accept(&takeawayVisitor);
                         }
                     }
@@ -140,13 +142,14 @@ public:
                         }
                         if (takeaway)
                         {
+                            TakeawayChargeVisitor takeawayVisitor;
                             teaItem->accept(&takeawayVisitor);
                         }
                     }
                 }
                 else
                 {
-                    CoffeeMaker *coffeeMaker = new CoffeeMaker(coffeeType, addMilk, addSugar);
+                    CoffeeMaker *coffeeMaker = new CoffeeMaker(coffeeType, addMilk, addSugar, takeaway);
                     OrderItem *coffeeItem = manager.createOrderItem(nullptr, coffeeMaker);
                     if (coffeeItem != nullptr)
                     {
@@ -158,6 +161,7 @@ public:
                         }
                         if (takeaway)
                         {
+                            TakeawayChargeVisitor takeawayVisitor;
                             coffeeItem->accept(&takeawayVisitor);
                         }
                     }

@@ -10,10 +10,10 @@ using namespace std;
 class CoffeeMaker : public DrinkMaker
 {
 public:
-    CoffeeMaker(string coffeeType, bool addMilk, bool addSugar)
+    CoffeeMaker(string coffeeType, bool addMilk, bool addSugar, bool isTakeaway)
         : DrinkMaker(nullptr)
     {
-        Coffee *coffee = CoffeeFactory::createCoffee(coffeeType);
+        Coffee *coffee = CoffeeFactory::createCoffee(coffeeType, isTakeaway);
         if (coffee == nullptr)
         {
             throw std::invalid_argument("Invalid coffee type");
@@ -62,7 +62,7 @@ public:
 class BlackCoffeeMaker : public CoffeeMaker
 {
 public:
-    BlackCoffeeMaker(bool addMilk, bool addSugar) : CoffeeMaker("black", addMilk, addSugar) {}
+    BlackCoffeeMaker(bool addMilk, bool addSugar, bool isTakeaway) : CoffeeMaker("black", addMilk, addSugar, isTakeaway) {}
     string getName() const override
     {
         return "Black Coffee";
@@ -72,7 +72,7 @@ public:
 class WhiteCoffeeMaker : public CoffeeMaker
 {
 public:
-    WhiteCoffeeMaker(bool addMilk, bool addSugar) : CoffeeMaker("white", addMilk, addSugar) {}
+    WhiteCoffeeMaker(bool addMilk, bool addSugar, bool isTakeaway) : CoffeeMaker("white", addMilk, addSugar, isTakeaway) {}
     string getName() const override
     {
         return "White Coffee";
