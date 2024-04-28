@@ -32,7 +32,7 @@ public:
         setName("Sandwich");
         setDescription("2 slices of bread with scrambled eggs, crispy bacon, melted cheese, and lettuce");
         setPrice(5.0);
-        takeawayAvailable = isTakeaway ? true : true;
+        takeawayAvailable = isTakeaway ? true : true; // Sandwiches are available for takeaway
     }
 };
 
@@ -44,7 +44,7 @@ public:
         setName("Tiramisu");
         setDescription("A coffee-flavored Italian dessert made from ladyfinger cookies dipped in coffee, with layers of mascarpone cheese");
         setPrice(4.0);
-        takeawayAvailable = isTakeaway ? false : true;
+        takeawayAvailable = isTakeaway ? false : true; // Tiramisu is not available for takeaway
     }
 };
 
