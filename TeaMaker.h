@@ -10,8 +10,24 @@ using namespace std;
 class TeaMaker : public DrinkMaker
 {
 public:
-    TeaMaker(string teaType, bool addMilk, bool addSugar)
-        : DrinkMaker(TeaFactory::createTea(teaType), addMilk, addSugar) {}
+    TeaMaker(string teaType, bool addMilk, bool addSugar ,bool isTakeaway)
+        : DrinkMaker(nullptr)
+    {
+        Tea *tea = TeaFactory::createTea(teaType, isTakeaway);
+        if (tea == nullptr)
+        {
+            throw std::invalid_argument("Invalid tea type");
+        }
+        drink = tea;
+        if (addMilk)
+        {
+            this->drink = new MilkDecorator(this->drink);
+        }
+        if (addSugar)
+        {
+            this->drink = new SugarDecorator(this->drink);
+        }
+    }
 
     virtual void boilWater() const
     {
@@ -41,13 +57,13 @@ public:
 class MatchaTeaMaker : public TeaMaker
 {
 public:
-    MatchaTeaMaker(bool addMilk, bool addSugar) : TeaMaker("matcha", addMilk, addSugar) {}
+    MatchaTeaMaker(bool addMilk, bool addSugar, bool isTakeaway) : TeaMaker("matcha", addMilk, addSugar,isTakeaway) {}
 };
 
 class ChaiMaker : public TeaMaker
 {
 public:
-    ChaiMaker(bool addMilk, bool addSugar) : TeaMaker("chai", addMilk, addSugar) {}
+    ChaiMaker(bool addMilk, bool addSugar, bool isTakeaway) : TeaMaker("chai", addMilk, addSugar, isTakeaway) {}
 };
 
 #endif

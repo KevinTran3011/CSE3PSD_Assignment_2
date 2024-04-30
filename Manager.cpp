@@ -130,7 +130,7 @@ public:
 
                 if (drinkType == "tea")
                 {
-                    TeaMaker *teaMaker = new TeaMaker(teaType, addMilk, addSugar);
+                    TeaMaker *teaMaker = new TeaMaker(teaType, addMilk, addSugar, takeaway);
                     OrderItem *teaItem = manager.createOrderItem(nullptr, teaMaker);
                     if (teaItem != nullptr)
                     {
